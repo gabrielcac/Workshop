@@ -29,22 +29,26 @@ public class PhysicsMovement : MonoBehaviour
 	{
 		if (Input.GetKey(KeyCode.UpArrow))
 		{
-			_rigidbody.AddForce( velocity * Time.deltaTime * new Vector3(0, 0, 1), ForceMode.VelocityChange);
+			_rigidbody.velocity = velocity * new Vector3(0, 0, 1);
+			//_rigidbody.AddForce(velocity * Time.deltaTime * new Vector3(0, 0, 1), ForceMode.VelocityChange);
 			//_rigidbody.MovePosition(transform.position + velocity * Time.deltaTime * new Vector3(0, 0, 1));
 		}
 		if (Input.GetKey(KeyCode.DownArrow))
 		{
-			_rigidbody.AddForce(velocity * Time.deltaTime * new Vector3(0, 0, -1), ForceMode.VelocityChange);
+			_rigidbody.velocity = velocity * new Vector3(0, 0, -1);
+			//_rigidbody.AddForce(velocity * Time.deltaTime * new Vector3(0, 0, -1), ForceMode.VelocityChange);
 			//_rigidbody.MovePosition(transform.position + velocity * Time.deltaTime * new Vector3(0, 0, -1));
 		}
 		if (Input.GetKey(KeyCode.LeftArrow))
 		{
-			_rigidbody.AddForce(velocity * Time.deltaTime * new Vector3(-1, 0, 0), ForceMode.VelocityChange);
+			_rigidbody.velocity = velocity * new Vector3(-1, 0, 0);
+			//_rigidbody.AddForce(velocity * Time.deltaTime * new Vector3(-1, 0, 0), ForceMode.VelocityChange);
 			//_rigidbody.MovePosition(transform.position + velocity * Time.deltaTime * new Vector3(-1, 0, 0));
 		}
 		if (Input.GetKey(KeyCode.RightArrow))
 		{
-			_rigidbody.AddForce(velocity * Time.deltaTime * new Vector3(1, 0, 0), ForceMode.VelocityChange);
+			_rigidbody.velocity = velocity * new Vector3(1, 0, 0);
+			//_rigidbody.AddForce(velocity * Time.deltaTime * new Vector3(1, 0, 0), ForceMode.VelocityChange);
 			//_rigidbody.MovePosition(transform.position + velocity * Time.deltaTime * new Vector3(1, 0, 0));
 		}
 	}
