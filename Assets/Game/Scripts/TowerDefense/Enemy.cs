@@ -13,6 +13,48 @@ public class Enemy : MonoBehaviour
 	private NavMeshAgent _navMeshAgent;
 	private Animator _animator;
 
+	public float Life
+	{
+		get
+		{
+			return _life;
+		}
+		set
+		{
+			_life = Mathf.Max(value, 0);
+
+			// Se o dano é suficiente para matá-lo, toca a animação de morte
+			// Se não, toca a animação de dano.
+			if (_life == 0)
+			{
+				_animator.SetTrigger("Die");
+				_navMeshAgent.enabled = false;
+				// Exercício: Usar Coroutine para destruir o corpo morto do inimigo após alguns segundos.
+			}
+			else
+			{
+				_animator.SetTrigger("Damage");
+				// Exercício: Usar Coroutine para parar a movimentação do inimigo por alguns segundos quando atingido.
+			}
+		}
+	}
+
+	public Vector3 ColliderPosition
+	{
+		get
+		{
+			return transform.TransformPoint(GetComponentInChildren<SphereCollider>().center);
+		}
+	}
+
+	public Vector3 Velocity
+	{
+		get
+		{
+			return _navMeshAgent.velocity;
+		}
+	}
+
 	private void Awake()
 	{
 		_navMeshAgent = GetComponent<NavMeshAgent>();
@@ -51,19 +93,6 @@ public class Enemy : MonoBehaviour
 	/// <param name="damage"></param>
 	public void Damage(float damage)
 	{
-		_life -= damage;
-
-		// Se o dano é suficiente para matá-lo, toca a animação de morte
-		// Se não, toca a animação de dano.
-		if(_life <= 0)
-		{
-			_animator.SetTrigger("Die");
-			// Exercício: Usar Coroutine para destruir o corpo morto do inimigo após alguns segundos.
-		}
-		else
-		{
-			_animator.SetTrigger("Damage");
-			// Exercício: Usar Coroutine para parar a movimentação do inimigo por alguns segundos quando atingido.
-		}
+		Life -= damage;
 	}
 }
