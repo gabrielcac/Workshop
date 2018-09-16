@@ -8,8 +8,6 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour
 {
-	public Gate gate;
-
 	private float _maximumSpeed = 2;
 	private float _life = 100;
 	private NavMeshAgent _navMeshAgent;
@@ -22,16 +20,29 @@ public class Enemy : MonoBehaviour
 
 		_animator = GetComponent<Animator>();
 	}
-
-	private void OnEnable()
-	{
-		_navMeshAgent.Warp(transform.position);
-		_navMeshAgent.SetDestination(gate.transform.position);
-	}
-
+	
 	private void Update()
 	{
 		_animator.SetFloat("Speed", _navMeshAgent.velocity.magnitude);
+	}
+
+	private void OnDisable()
+	{
+		if (_navMeshAgent.isOnNavMesh)
+		{
+			_navMeshAgent.isStopped = true;
+		}
+	}
+
+	/// <summary>
+	/// Sets the <see cref="Gate"/> where this enemy is trying to go.
+	/// </summary>
+	/// <param name="gate"></param>
+	public void SetTarget(Gate gate)
+	{
+		_navMeshAgent.Warp(transform.position);
+		_navMeshAgent.isStopped = false;
+		_navMeshAgent.SetDestination(gate.transform.position);
 	}
 
 	/// <summary>
