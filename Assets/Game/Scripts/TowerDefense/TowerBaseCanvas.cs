@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TowerBaseCanvas : MonoBehaviour, IPointerExitHandler
+namespace Workshop.TowerDefense
 {
-	public void OnPointerExit(PointerEventData eventData)
+	public class TowerBaseCanvas : MonoBehaviour, IPointerExitHandler
 	{
-		gameObject.SetActive(false);
+		public void OnPointerExit(PointerEventData eventData)
+		{
+			gameObject.SetActive(false);
+		}
 	}
 }

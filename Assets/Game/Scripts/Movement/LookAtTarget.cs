@@ -1,13 +1,19 @@
 ﻿using UnityEngine;
 
-public class LookAtTarget : MonoBehaviour
+namespace Workshop.Movement
 {
-	public Transform target;
-
-	private void Update()
+	/// <summary>
+	/// Rotaciona um objeto para que fique de frente para o objeto target.
+	/// </summary>
+	public class LookAtTarget : MonoBehaviour
 	{
-		Vector3 directionToTarget = target.transform.position - transform.position;
+		public Transform target;
 
-		transform.rotation = Quaternion.LookRotation(directionToTarget);
+		private void Update()
+		{
+			Vector3 directionToTarget = target.transform.position - transform.position;
+
+			transform.rotation = Quaternion.LookRotation(directionToTarget);
+		}
 	}
 }

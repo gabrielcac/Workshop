@@ -1,61 +1,64 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(MeshRenderer))]
-public class Towerbase : MonoBehaviour
+namespace Workshop.TowerDefense
 {
-	public Color mouseOverColor;
-	public GameController gameController;
-	public Canvas buildingCanvas;
-
-	private MeshRenderer _renderer;
-	private Animator _animator;
-	private bool _builded;
-
-	private void Awake()
+	[RequireComponent(typeof(Animator))]
+	[RequireComponent(typeof(MeshRenderer))]
+	public class Towerbase : MonoBehaviour
 	{
-		_renderer = GetComponent<MeshRenderer>();
-		_animator = GetComponent<Animator>();
-	}
+		public Color mouseOverColor;
+		public GameController gameController;
+		public Canvas buildingCanvas;
 
-	private void OnMouseOver()
-	{
-		if(!_builded)
+		private MeshRenderer _renderer;
+		private Animator _animator;
+		private bool _builded;
+
+		private void Awake()
 		{
-			_renderer.material.color = mouseOverColor;
+			_renderer = GetComponent<MeshRenderer>();
+			_animator = GetComponent<Animator>();
 		}
-	}
 
-	private void OnMouseDown()
-	{
-		if (!_builded)
+		private void OnMouseOver()
 		{
-			buildingCanvas.gameObject.SetActive(true);
+			if (!_builded)
+			{
+				_renderer.material.color = mouseOverColor;
+			}
 		}
-	}
 
-	private void OnMouseExit()
-	{
-		_renderer.material.color = Color.white;
-	}
-
-	public void BuildTower()
-	{
-		if(gameController.Money >= gameController.configuration.towerPrice)
+		private void OnMouseDown()
 		{
-			gameController.Money -= gameController.configuration.towerPrice;
-			_animator.SetTrigger("BuildTower");
-			_builded = true;
+			if (!_builded)
+			{
+				buildingCanvas.gameObject.SetActive(true);
+			}
 		}
-	}
 
-	public void BuildMachinegun()
-	{
-		if (gameController.Money >= gameController.configuration.machinegunPrice)
+		private void OnMouseExit()
 		{
-			gameController.Money -= gameController.configuration.machinegunPrice;
-			_animator.SetTrigger("BuildMachinegun");
-			_builded = true;
+			_renderer.material.color = Color.white;
+		}
+
+		public void BuildTower()
+		{
+			if (gameController.Money >= gameController.configuration.towerPrice)
+			{
+				gameController.Money -= gameController.configuration.towerPrice;
+				_animator.SetTrigger("BuildTower");
+				_builded = true;
+			}
+		}
+
+		public void BuildMachinegun()
+		{
+			if (gameController.Money >= gameController.configuration.machinegunPrice)
+			{
+				gameController.Money -= gameController.configuration.machinegunPrice;
+				_animator.SetTrigger("BuildMachinegun");
+				_builded = true;
+			}
 		}
 	}
 }

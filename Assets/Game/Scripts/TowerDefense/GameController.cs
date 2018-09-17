@@ -1,25 +1,28 @@
 ﻿using UnityEngine;
 
-public class GameController : MonoBehaviour
+namespace Workshop.TowerDefense
 {
-	public GameConfiguration configuration;
-
-	private int _money;
-
-	public int Money
+	public class GameController : MonoBehaviour
 	{
-		get
-		{
-			return _money;
-		}
-		set
-		{
-			_money = value;
-		}
-	}
+		public GameConfiguration configuration;
 
-	private void Awake()
-	{
-		_money = configuration.startingMoney;
+		private int _money;
+
+		public int Money
+		{
+			get
+			{
+				return _money;
+			}
+			set
+			{
+				_money = value;
+			}
+		}
+
+		private void Awake()
+		{
+			_money = configuration.startingMoney;
+		}
 	}
 }

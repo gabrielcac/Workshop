@@ -1,58 +1,64 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class CameraBasedCharacterMovement : MonoBehaviour
+namespace Workshop.Movement
 {
-	private enum StateId { Idle, Walking, Running }
-
-	public float walkingSpeed;
-	public Camera gameCamera;
-	
-	public Animator animator;
-	public string moveSpeedFloatProperty = "MoveSpeed";
-
-	private Rigidbody _rigidbody;
-
-	private void Awake()
+	/// <summary>
+	/// Ao invés de se mover ao longo dos eixos X e Z, o personagem se move em relação a câmera
+	/// </summary>
+	[RequireComponent(typeof(Rigidbody))]
+	public class CameraBasedCharacterMovement : MonoBehaviour
 	{
-		_rigidbody = GetComponent<Rigidbody>();
-	}
+		private enum StateId { Idle, Walking, Running }
 
-	private void FixedUpdate()
-	{
-		Vector3 direction = Vector3.zero;
-		if (Input.GetKey(KeyCode.UpArrow))
+		public float walkingSpeed;
+		public Camera gameCamera;
+
+		public Animator animator;
+		public string moveSpeedFloatProperty = "MoveSpeed";
+
+		private Rigidbody _rigidbody;
+
+		private void Awake()
 		{
-			direction += gameCamera.transform.forward;
-		}
-		if (Input.GetKey(KeyCode.DownArrow))
-		{
-			direction += -gameCamera.transform.forward;
-		}
-		if (Input.GetKey(KeyCode.LeftArrow))
-		{
-			direction += -gameCamera.transform.right;
-		}
-		if (Input.GetKey(KeyCode.RightArrow))
-		{
-			direction += gameCamera.transform.right;
+			_rigidbody = GetComponent<Rigidbody>();
 		}
 
-		direction.y = 0;
-
-		_rigidbody.velocity = walkingSpeed * direction;
-
-		if (direction != Vector3.zero)
+		private void FixedUpdate()
 		{
-			animator.SetFloat(moveSpeedFloatProperty, walkingSpeed);
+			Vector3 direction = Vector3.zero;
+			if (Input.GetKey(KeyCode.UpArrow))
+			{
+				direction += gameCamera.transform.forward;
+			}
+			if (Input.GetKey(KeyCode.DownArrow))
+			{
+				direction += -gameCamera.transform.forward;
+			}
+			if (Input.GetKey(KeyCode.LeftArrow))
+			{
+				direction += -gameCamera.transform.right;
+			}
+			if (Input.GetKey(KeyCode.RightArrow))
+			{
+				direction += gameCamera.transform.right;
+			}
 
-			// Utilizamos matrizes 4x4 chamadas de Quaternions para rotacionar os
-			// objetos
-			transform.rotation = Quaternion.LookRotation(direction);
-		}
-		else
-		{
-			animator.SetFloat(moveSpeedFloatProperty, 0);
+			direction.y = 0;
+
+			_rigidbody.velocity = walkingSpeed * direction;
+
+			if (direction != Vector3.zero)
+			{
+				animator.SetFloat(moveSpeedFloatProperty, walkingSpeed);
+
+				// Utilizamos matrizes 4x4 chamadas de Quaternions para rotacionar os
+				// objetos
+				transform.rotation = Quaternion.LookRotation(direction);
+			}
+			else
+			{
+				animator.SetFloat(moveSpeedFloatProperty, 0);
+			}
 		}
 	}
 }

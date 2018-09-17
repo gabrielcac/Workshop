@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
 
-public class Billboard : MonoBehaviour
+namespace Workshop.TowerDefense
 {
-	private Camera _camera;
-
-	private void Start()
+	public class Billboard : MonoBehaviour
 	{
-		_camera = Camera.main;
-	}
+		private Camera _camera;
 
-	private void Update()
-	{
-		transform.LookAt(transform.position + _camera.transform.rotation * Vector3.forward,
-						 _camera.transform.rotation * Vector3.up);
+		private void Start()
+		{
+			_camera = Camera.main;
+		}
+
+		private void Update()
+		{
+			transform.LookAt(transform.position + _camera.transform.rotation * Vector3.forward,
+							 _camera.transform.rotation * Vector3.up);
+		}
 	}
 }

@@ -1,37 +1,40 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class Arrow : MonoBehaviour
+namespace Workshop.TowerDefense
 {
-	public float damage;
-
-	private Rigidbody _rigidbody;
-	private Vector3 _velocity;
-
-	private void Awake()
+	[RequireComponent(typeof(Rigidbody))]
+	public class Arrow : MonoBehaviour
 	{
-		_rigidbody = GetComponent<Rigidbody>();
-	}
+		public float damage;
 
-	private void Update()
-	{
-		_rigidbody.velocity = _velocity;
-	}
+		private Rigidbody _rigidbody;
+		private Vector3 _velocity;
 
-	private void OnTriggerEnter(Collider other)
-	{
-		Enemy enemy = other.GetComponentInParent<Enemy>();
-		if (enemy != null)
+		private void Awake()
 		{
-			enemy.Damage(damage);
+			_rigidbody = GetComponent<Rigidbody>();
 		}
 
-		Destroy(gameObject);
-	}
+		private void Update()
+		{
+			_rigidbody.velocity = _velocity;
+		}
 
-	public void Fire(Vector3 velocity)
-	{
-		transform.rotation = Quaternion.LookRotation(velocity);
-		_velocity = velocity;
+		private void OnTriggerEnter(Collider other)
+		{
+			Enemy enemy = other.GetComponentInParent<Enemy>();
+			if (enemy != null)
+			{
+				enemy.Damage(damage);
+			}
+
+			Destroy(gameObject);
+		}
+
+		public void Fire(Vector3 velocity)
+		{
+			transform.rotation = Quaternion.LookRotation(velocity);
+			_velocity = velocity;
+		}
 	}
 }
