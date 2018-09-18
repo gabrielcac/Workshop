@@ -12,6 +12,7 @@ namespace Workshop.TowerDefense
 		private MeshRenderer _renderer;
 		private Animator _animator;
 		private bool _builded;
+		private bool _mouseOver;
 
 		private void Awake()
 		{
@@ -19,25 +20,35 @@ namespace Workshop.TowerDefense
 			_animator = GetComponent<Animator>();
 		}
 
-		private void OnMouseOver()
+		private void Update()
 		{
-			if (!_builded)
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit[] hits = Physics.RaycastAll(ray, 60f);
+			_mouseOver = false;
+			for(int i = 0, j = hits.Length; i < j; i++)
 			{
-				_renderer.material.color = mouseOverColor;
+				if(hits[i].collider.GetComponent<Towerbase>()  == this)
+				{
+					_mouseOver = true;
+					if (!_builded)
+					{
+						_renderer.material.color = mouseOverColor;
+					}
+				}
 			}
-		}
 
-		private void OnMouseDown()
-		{
-			if (!_builded)
+			if(_mouseOver && Input.GetKeyDown(KeyCode.Mouse0))
 			{
-				buildingCanvas.gameObject.SetActive(true);
+				if (!_builded)
+				{
+					buildingCanvas.gameObject.SetActive(true);
+				}
 			}
-		}
 
-		private void OnMouseExit()
-		{
-			_renderer.material.color = Color.white;
+			if(!_mouseOver)
+			{
+				_renderer.material.color = Color.white;
+			}
 		}
 
 		public void BuildTower()
