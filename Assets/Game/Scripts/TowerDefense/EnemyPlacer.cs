@@ -16,6 +16,14 @@ namespace Workshop.TowerDefense
 		private int _currentWave;
 		private bool _finished;
 
+		public bool Finished
+		{
+			get
+			{
+				return _finished;
+			}
+		}
+
 		private void Start()
 		{
 			StartCoroutine(PlaceWave(waves[_currentWave++]));

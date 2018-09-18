@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,6 +15,8 @@ namespace Workshop.TowerDefense
 	{
 		private enum StateId { Initial, Moving, Attacking, Dead }
 
+		private static List<Enemy> _alive;
+
 		// Exercício: Para poder criar diferentes inimigosé necessário transform alguns de seus atribtos
 		// privados em públicos. Se preferir, separe-os em um ScriptableObject.
 		private float _maximumSpeed = 2;
@@ -24,6 +27,18 @@ namespace Workshop.TowerDefense
 		private Animator _animator;
 		private Gate _gate;
 		private StateId _state;
+
+		public static List<Enemy> AllAlive
+		{
+			get
+			{
+				if(_alive == null)
+				{
+					_alive = new List<Enemy>();
+				}
+				return _alive;
+			}
+		}
 
 		public float Life
 		{
@@ -106,6 +121,7 @@ namespace Workshop.TowerDefense
 						_animator.SetFloat("Speed", 0);
 						_navMeshAgent.enabled = false;
 						StopCoroutine("AttackCoroutine");
+						AllAlive.Remove(this);
 						break;
 				}
 			}
@@ -117,6 +133,11 @@ namespace Workshop.TowerDefense
 			_navMeshAgent.speed = _maximumSpeed;
 
 			_animator = GetComponent<Animator>();
+		}
+
+		private void OnEnable()
+		{
+			AllAlive.Add(this);
 		}
 
 		private void Update()
@@ -143,6 +164,11 @@ namespace Workshop.TowerDefense
 			if (_navMeshAgent.isOnNavMesh)
 			{
 				_navMeshAgent.isStopped = true;
+			}
+
+			if(State != StateId.Dead)
+			{
+				AllAlive.Remove(this);
 			}
 		}
 

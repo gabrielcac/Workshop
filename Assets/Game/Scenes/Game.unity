@@ -6718,6 +6718,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   configuration: {fileID: 11400000, guid: 18c547c8838b834469666fc509d8ddcb, type: 2}
+  gate: {fileID: 69226369}
+  enemyPlacer: {fileID: 1207618738}
 --- !u!4 &1696849945
 Transform:
   m_ObjectHideFlags: 0
@@ -7046,7 +7048,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh25706
+  m_Name: pb_Mesh12816
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2

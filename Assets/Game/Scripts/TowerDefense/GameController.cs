@@ -8,10 +8,15 @@ namespace Workshop.TowerDefense
 	/// </summary>
 	public class GameController : MonoBehaviour
 	{
+		private enum StateId { Initial, Running, Over }
+
 		private static GameController _singleton;
 
 		public GameConfiguration configuration;
+		public Gate gate;
+		public EnemyPlacer enemyPlacer;
 
+		private StateId _state;
 		private int _money;
 
 		/// <summary>
@@ -40,6 +45,32 @@ namespace Workshop.TowerDefense
 			}
 		}
 
+		private StateId State
+		{
+			get
+			{
+				return _state;
+			}
+			set
+			{
+				if(_state == value)
+				{
+					return;
+				}
+
+				_state = value;
+				switch(_state)
+				{
+					case StateId.Running:
+						enemyPlacer.enabled = true;
+						break;
+					case StateId.Over:
+						enemyPlacer.enabled = false;
+						break;
+				}
+			}
+		}
+
 		private void Awake()
 		{
 			if(_singleton != null)
@@ -50,6 +81,28 @@ namespace Workshop.TowerDefense
 			_singleton = this;
 
 			_money = configuration.startingMoney;
+		}
+
+		private void Start()
+		{
+			State = StateId.Running;
+		}
+
+		private void Update()
+		{
+			if(State == StateId.Running)
+			{
+				if(gate.Life == 0)
+				{
+					Debug.Log("Você perdeu!");
+					State = StateId.Over;
+				}
+				else if(enemyPlacer.Finished && Enemy.AllAlive.Count == 0)
+				{
+					Debug.Log("Parabéns! Você ganhou!");
+					State = StateId.Over;
+				}
+			}
 		}
 
 		private void OnDestroy()
