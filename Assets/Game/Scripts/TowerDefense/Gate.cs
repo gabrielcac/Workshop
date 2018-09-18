@@ -18,8 +18,6 @@ namespace Workshop.TowerDefense
 		public void Damage(float damage)
 		{
 			_life = Mathf.Max(0, _life - damage);
-
-			Debug.Log("O protão sofreu " + damage + " e está com " + _life + " pontos de vida.");
 		}
 	}
 }
