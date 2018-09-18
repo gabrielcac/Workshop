@@ -10,6 +10,8 @@ namespace Workshop.TowerDefense
 	[RequireComponent(typeof(Animator))]
 	public class Enemy : MonoBehaviour
 	{
+		// Exercício: Para poder criar diferentes inimigos, transforme os atributos de velocidade
+		// e vida em atributos públicos. Se preferir, separe-os em um ScriptableObject.
 		private float _maximumSpeed = 2;
 		private float _life = 100;
 		private NavMeshAgent _navMeshAgent;
@@ -41,6 +43,10 @@ namespace Workshop.TowerDefense
 			}
 		}
 
+		/// <summary>
+		/// Posição central do collider deste inimigo.
+		/// Função usada pelas torres para saber onde mirar seus disparos.
+		/// </summary>
 		public Vector3 ColliderPosition
 		{
 			get
@@ -49,6 +55,11 @@ namespace Workshop.TowerDefense
 			}
 		}
 
+		/// <summary>
+		/// Velocidade de movimentação do inimigo.
+		/// Colocando este atributo em uma Property evitamos que outras classes que precisem saber a
+		/// velocidade do inimigo tenham que saber se ele usa Physics ou não.
+		/// </summary>
 		public Vector3 Velocity
 		{
 			get

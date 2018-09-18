@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Workshop.TowerDefense
 {
 	/// <summary>
-	/// Controla as waves do jogo, e insere os inimigos no mapa um a um.
+	/// Controla as waves de inimigos do jogo.
 	/// </summary>
 	public class EnemyPlacer : MonoBehaviour
 	{

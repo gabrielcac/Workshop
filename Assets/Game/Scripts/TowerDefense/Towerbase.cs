@@ -7,7 +7,6 @@ namespace Workshop.TowerDefense
 	public class Towerbase : MonoBehaviour
 	{
 		public Color mouseOverColor;
-		public GameController gameController;
 		public Canvas buildingCanvas;
 
 		private MeshRenderer _renderer;
@@ -43,9 +42,9 @@ namespace Workshop.TowerDefense
 
 		public void BuildTower()
 		{
-			if (gameController.Money >= gameController.configuration.towerPrice)
+			if (GameController.Instance.Money >= GameController.Instance.configuration.towerPrice)
 			{
-				gameController.Money -= gameController.configuration.towerPrice;
+				GameController.Instance.Money -= GameController.Instance.configuration.towerPrice;
 				_animator.SetTrigger("BuildTower");
 				_builded = true;
 			}
@@ -53,9 +52,9 @@ namespace Workshop.TowerDefense
 
 		public void BuildMachinegun()
 		{
-			if (gameController.Money >= gameController.configuration.machinegunPrice)
+			if (GameController.Instance.Money >= GameController.Instance.configuration.machinegunPrice)
 			{
-				gameController.Money -= gameController.configuration.machinegunPrice;
+				GameController.Instance.Money -= GameController.Instance.configuration.machinegunPrice;
 				_animator.SetTrigger("BuildMachinegun");
 				_builded = true;
 			}

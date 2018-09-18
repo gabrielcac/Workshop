@@ -2,6 +2,9 @@
 
 namespace Workshop.TowerDefense
 {
+	/// <summary>
+	/// Um billboard é uma imagem 2D em um mundo 3D, e fica sempre com a face virada para a câmera.
+	/// </summary>
 	public class Billboard : MonoBehaviour
 	{
 		private Camera _camera;
