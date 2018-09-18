@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 
+/// <summary>
+/// Movimenta a câmera pela cena do jogo
+/// </summary>
 public class CameraMovement : MonoBehaviour
 {
 	public Bounds cameraLimits;
