@@ -1251,10 +1251,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1673516361}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc71d604cd5f088489b52945cd0de67e, type: 3}
+  m_Script: {fileID: 11500000, guid: e0255221caddf3841b0b2684296e1f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 1
+  velocity: 5
 --- !u!23 &1673516364
 MeshRenderer:
   m_ObjectHideFlags: 0
